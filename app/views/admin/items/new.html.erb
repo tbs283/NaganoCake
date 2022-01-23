@@ -1,2 +1,7 @@
-<h1>Admin::Items#new</h1>
-<p>Find me in app/views/admin/items/new.html.erb</p>
+<%= form_with model:@item_new, url:admin_items_path, local:true do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :introduction %>
+    <%= f.text_field :introduction %>
+    <%= f.submit '保存' %>
+<% end %>
