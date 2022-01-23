@@ -1,2 +1,8 @@
-<h1>Public::Items#show</h1>
-<p>Find me in app/views/public/items/show.html.erb</p>
+<%=  @item.name %>
+<%=  @item.introduction %>
+<%=  @item.price %>
+<%= form_with model:@cart_items_new, url:cart_items_path, local:true do |f| %>
+    <%= f.hidden_field :item_id, :value => @item.id %>
+    <%= f.label :amount, "個数" %>
+    <%= f.number_field :amount %>
+<% end %>

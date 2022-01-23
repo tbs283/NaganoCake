@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   scope module: :public do
+    devise_for :customers, controllers: {
+      sessions:      'public/customers/sessions',
+      passwords:     'public/customers/passwords',
+      registrations: 'public/customers/registrations'
+    }
     get "/" => "homes#top"
     get "/about" => "homes#about"
     resources :items, only: [:show, :index]
@@ -8,11 +13,10 @@ Rails.application.routes.draw do
     patch "customers" => "customers#withdrawal"
     resources :cart_items, only: [:index, :update, :destroy, :create]
     delete "cart_items/:id" => "cart_items#remove"
+    get "orders/confirm" => "orders#confirm"
+    get "orders/thanks" => "orders#thanks"
     resources :orders, only: [:new, :create, :index, :show]
-    post "orders/confirm" => "orders#confirm"
-    post "orders/thanks" => "orders#thanks"
     resources :addresses, only: [:index, :edit, :create, :update, :destroy]
-    devise_for :customers
   end
   
   namespace :admin do
@@ -24,6 +28,10 @@ Rails.application.routes.draw do
     resources :order_items, only: [:update]
   end
 
-  devise_for :admin
+  devise_for :admin, controllers: {
+    sessions:      'admin/sessions',
+    passwords:     'admin/passwords',
+    registrations: 'admin/registrations'
+  }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
